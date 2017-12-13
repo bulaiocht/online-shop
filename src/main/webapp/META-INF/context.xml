@@ -1,8 +1,8 @@
 <Context>
-    <Resource name="jdbc/yajim" auth="Container"
+    <Resource name="jdbc/ec2" auth="Container"
               type="javax.sql.DataSource" driverClassName="org.postgresql.Driver"
-              url="jdbc:postgresql://localhost:5432/yajim"
-              username="postgres" password="postgres" maxTotal="20" maxIdle="10"
+              url="jdbc:postgresql://testpostgres.cqyuj2wzveqd.eu-west-1.rds.amazonaws.com/quiz"
+              username="postgres" password="Pi3141592654!" maxTotal="20" maxIdle="10"
               maxWaitMillis="-1"/>
 
     <Resource name="jdbc/world" auth="Container"

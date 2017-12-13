@@ -23,7 +23,7 @@ public class TestServlet extends HttpServlet{
 
     private final static Logger logger = Logger.getLogger(TestServlet.class);
 
-    @Resource(name = "jdbc/yajim")
+    @Resource(name = "jdbc/ec2")
     private DataSource postgresDataSource;
 
     @Resource(name = "jdbc/world")
@@ -59,7 +59,6 @@ public class TestServlet extends HttpServlet{
         }catch (Exception e){
             e.printStackTrace();
         }
-
 
         PrintWriter writer = resp.getWriter();
         writer.print("<! DOCTYPE html>");
