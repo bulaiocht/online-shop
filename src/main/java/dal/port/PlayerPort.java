@@ -1,8 +1,11 @@
 package dal.port;
 
-/**
- * Created by Kocherha Vitalii on 13.12.2017.
- */
+import domain.Player;
+
+import java.util.List;
+
 public interface PlayerPort {
+
+    List<Player> getAllPlayers();
 
 }

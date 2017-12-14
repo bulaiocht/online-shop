@@ -1,8 +1,11 @@
 package dal.port;
 
-/**
- * Created by Kocherha Vitalii on 13.12.2017.
- */
+import domain.Judge;
+
+import java.util.List;
+
 public interface JudgePort {
+
+    List<Judge> getAllJudges();
 
 }
