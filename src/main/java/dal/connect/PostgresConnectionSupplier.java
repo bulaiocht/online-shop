@@ -22,6 +22,6 @@ public class PostgresConnectionSupplier implements ConnectionSupplier {
 
     @Override
     public Connection getConnection() throws SQLException{
-        return postgresDataSource.getConnection("postgres", "Pi3141592654!");
+        return postgresDataSource.getConnection();
     }
 }
