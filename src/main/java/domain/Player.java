@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Player implements Serializable{
 
@@ -35,19 +36,15 @@ public class Player implements Serializable{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Player)) return false;
-
+        if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-
-        if (id != player.id) return false;
-        return name != null ? name.equals(player.name) : player.name == null;
+        return id == player.id &&
+                Objects.equals(name, player.name);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return Objects.hash(id, name);
     }
 
     @Override

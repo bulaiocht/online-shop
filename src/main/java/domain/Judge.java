@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Judge implements Serializable {
 
@@ -35,19 +36,16 @@ public class Judge implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Judge)) return false;
-
+        if (o == null || getClass() != o.getClass()) return false;
         Judge judge = (Judge) o;
-
-        if (id != judge.id) return false;
-        return username != null ? username.equals(judge.username) : judge.username == null;
+        return id == judge.id &&
+                Objects.equals(username, judge.username);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, username);
     }
 
     @Override

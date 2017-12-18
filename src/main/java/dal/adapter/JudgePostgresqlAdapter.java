@@ -3,7 +3,8 @@ package dal.adapter;
 import dal.connect.ConnectionSupplier;
 import dal.port.JudgePort;
 import domain.Judge;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class JudgePostgresqlAdapter implements JudgePort {
 
-    private static final Logger logger = Logger.getLogger(JudgePostgresqlAdapter.class);
+    private static final Logger logger = LogManager.getLogger(JudgePostgresqlAdapter.class);
 
     private ConnectionSupplier connectionSupplier;
 
@@ -33,8 +34,9 @@ public class JudgePostgresqlAdapter implements JudgePort {
                 Statement statement = conn.createStatement();
                 ResultSet resultSet = statement.executeQuery(SELECT_ALL);
                 while (resultSet.next()){
-                    Judge judge = new Judge(resultSet.getInt("judge_id"),
-                            resultSet.getString("username"));
+                    Judge judge = new Judge();
+                    judge.setId(resultSet.getInt("judge_id"));
+                    judge.setUsername(resultSet.getString("username"));
                     judges.add(judge);
                 }
             }

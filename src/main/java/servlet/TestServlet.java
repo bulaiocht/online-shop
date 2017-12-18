@@ -1,10 +1,13 @@
+package servlet;
+
 import dal.AbstractPortFactory;
 import dal.PostgresqlAdapterFactory;
 import dal.port.JudgePort;
 import dal.port.PlayerPort;
 import domain.Judge;
 import domain.Player;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +21,7 @@ import java.util.List;
 @WebServlet("/test")
 public class TestServlet extends HttpServlet{
 
-    private final static Logger logger = Logger.getLogger(TestServlet.class);
+    private final static Logger logger = LogManager.getLogger(TestServlet.class);
 
     private AbstractPortFactory factory  = new PostgresqlAdapterFactory();
 
@@ -27,15 +30,10 @@ public class TestServlet extends HttpServlet{
     private PlayerPort playerPort = factory.getPlayerPort();
 
     @Override
-    public void init() throws ServletException {
-
-
-    }
-
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
 
         List<Player> players = playerPort.getAllPlayers();
+
         List<Judge> judges = judgePort.getAllJudges();
 
         try(PrintWriter writer = resp.getWriter()) {
@@ -49,12 +47,14 @@ public class TestServlet extends HttpServlet{
             writer.print("</head>");
             writer.print("<body>");
             for (Player player:players) {
+                logger.info(player.getName());
                 writer.print("<p>" + player.toString() + "</p>");
             }
 
             for (Judge judge:judges) {
                 writer.print("<p>" + judge.toString() + "</p>");
             }
+
             writer.print("</body>");
             writer.print("</html>");
 

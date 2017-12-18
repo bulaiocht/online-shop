@@ -3,7 +3,8 @@ package dal.adapter;
 import dal.connect.ConnectionSupplier;
 import dal.port.PlayerPort;
 import domain.Player;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,8 +15,7 @@ import java.util.List;
 
 public class PlayerPostgresqlAdapter implements PlayerPort {
 
-    private static final Logger logger = Logger.getLogger(PlayerPostgresqlAdapter.class);
-
+    private static final Logger logger = LogManager.getLogger(PlayerPostgresqlAdapter.class);
 
     private ConnectionSupplier connectionSupplier;
 
@@ -34,8 +34,9 @@ public class PlayerPostgresqlAdapter implements PlayerPort {
                 Statement statement = conn.createStatement();
                 ResultSet resultSet = statement.executeQuery(SELECT_ALL);
                 while (resultSet.next()){
-                    Player player = new Player(resultSet.getInt("player_id"),
-                            resultSet.getString("username"));
+                    Player player = new Player();
+                    player.setId(resultSet.getInt("player_id"));
+                    player.setName(resultSet.getString("username"));
                     players.add(player);
                 }
 
