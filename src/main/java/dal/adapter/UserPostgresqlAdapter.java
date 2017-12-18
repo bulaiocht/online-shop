@@ -1,8 +1,9 @@
 package dal.adapter;
 
 import dal.connect.ConnectionSupplier;
-import dal.port.PlayerPort;
-import domain.Player;
+import dal.port.UserPort;
+import domain.QuizUser;
+import domain.Role;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,38 +14,37 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerPostgresqlAdapter implements PlayerPort {
+public class UserPostgresqlAdapter implements UserPort {
 
-    private static final Logger logger = LogManager.getLogger(PlayerPostgresqlAdapter.class);
+    private static final Logger logger = LogManager.getLogger(UserPostgresqlAdapter.class);
 
     private ConnectionSupplier connectionSupplier;
 
-    private static final String SELECT_ALL = "SELECT * FROM player";
+    private static final String SELECT_ALL = "SELECT * FROM user";
 
-    public PlayerPostgresqlAdapter(ConnectionSupplier connectionSupplier) {
+    public UserPostgresqlAdapter(ConnectionSupplier connectionSupplier) {
         this.connectionSupplier = connectionSupplier;
     }
 
     @Override
-    public List<Player> getAllPlayers() {
-        List<Player> players = new ArrayList<>();
+    public List<QuizUser> getAllUsers() {
+        List<QuizUser> quizUsers = new ArrayList<>();
         try(Connection conn = connectionSupplier.getConnection()){
             if (conn!=null){
                 logger.info("Connection obtained");
                 Statement statement = conn.createStatement();
                 ResultSet resultSet = statement.executeQuery(SELECT_ALL);
                 while (resultSet.next()){
-                    Player player = new Player();
-                    player.setId(resultSet.getInt("player_id"));
-                    player.setName(resultSet.getString("username"));
-                    players.add(player);
+                    QuizUser user = new QuizUser();
+                    user.setId(resultSet.getInt("user_id"));
+                    user.setUsername(resultSet.getString("username"));
+                    user.setRole(Role.getById(resultSet.getInt("role_id")));
+                    quizUsers.add(user);
                 }
-
-            } else throw new SQLException();
+            }
         } catch (SQLException e) {
             logger.fatal("Failed to get connection!", e.getCause());
         }
-        return players;
-
+        return quizUsers;
     }
 }

@@ -1,21 +1,14 @@
 package dal;
 
-import dal.adapter.JudgePostgresqlAdapter;
-import dal.adapter.PlayerPostgresqlAdapter;
+import dal.adapter.UserPostgresqlAdapter;
 import dal.connect.PostgresConnectionSupplier;
-import dal.port.JudgePort;
-import dal.port.PlayerPort;
+import dal.port.UserPort;
 
 public class PostgresqlAdapterFactory extends AbstractPortFactory {
 
     @Override
-    public JudgePort getJudgePort() {
-        return new JudgePostgresqlAdapter(new PostgresConnectionSupplier());
-    }
-
-    @Override
-    public PlayerPort getPlayerPort() {
-        return new PlayerPostgresqlAdapter(new PostgresConnectionSupplier());
+    public UserPort getUserPort() {
+        return new UserPostgresqlAdapter(new PostgresConnectionSupplier());
     }
 
 }

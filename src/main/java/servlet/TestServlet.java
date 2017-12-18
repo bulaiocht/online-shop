@@ -1,11 +1,10 @@
 package servlet;
 
 import dal.AbstractPortFactory;
+import dal.MySQLAdapterFactory;
 import dal.PostgresqlAdapterFactory;
-import dal.port.JudgePort;
-import dal.port.PlayerPort;
-import domain.Judge;
-import domain.Player;
+import dal.port.UserPort;
+import domain.QuizUser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,18 +22,14 @@ public class TestServlet extends HttpServlet{
 
     private final static Logger logger = LogManager.getLogger(TestServlet.class);
 
-    private AbstractPortFactory factory  = new PostgresqlAdapterFactory();
+    private AbstractPortFactory factory  = new MySQLAdapterFactory();
 
-    private JudgePort judgePort = factory.getJudgePort();
-
-    private PlayerPort playerPort = factory.getPlayerPort();
+    private UserPort userPort = factory.getUserPort();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
 
-        List<Player> players = playerPort.getAllPlayers();
-
-        List<Judge> judges = judgePort.getAllJudges();
+        List<QuizUser> users = userPort.getAllUsers();
 
         try(PrintWriter writer = resp.getWriter()) {
             writer.print("<! DOCTYPE html>");
@@ -46,15 +41,10 @@ public class TestServlet extends HttpServlet{
             writer.print("<meta charset='UTF-8'/>");
             writer.print("</head>");
             writer.print("<body>");
-            for (Player player:players) {
-                logger.info(player.getName());
-                writer.print("<p>" + player.toString() + "</p>");
+            for (QuizUser user : users) {
+                logger.info(user.getUsername());
+                writer.print("<p>" + user.toString() + "</p>");
             }
-
-            for (Judge judge:judges) {
-                writer.print("<p>" + judge.toString() + "</p>");
-            }
-
             writer.print("</body>");
             writer.print("</html>");
 

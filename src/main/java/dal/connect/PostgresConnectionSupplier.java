@@ -23,7 +23,6 @@ public class PostgresConnectionSupplier implements ConnectionSupplier {
              if (bundle.containsKey("datasourceName")){
                  datasourceName = bundle.getString("datasourceName");
              }
-
              postgresDataSource = (DataSource) ctx.lookup(ENV + datasourceName);
 
          } catch (NamingException e) {

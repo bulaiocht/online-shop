@@ -1,11 +1,9 @@
 package dal;
 
-import dal.port.JudgePort;
-import dal.port.PlayerPort;
+import dal.port.UserPort;
 
 public abstract class AbstractPortFactory {
 
-    public abstract JudgePort getJudgePort();
-    public abstract PlayerPort getPlayerPort();
+    public abstract UserPort getUserPort();
 
 }

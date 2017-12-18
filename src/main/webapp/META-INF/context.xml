@@ -11,17 +11,15 @@
               maxWaitMillis="-1"
     />
 
-    <Resource name="jdbc/world"
+    <Resource name="jdbc/quiz"
               auth="Container"
               type="javax.sql.DataSource"
               driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/world?serverTimezone=UTC"
+              url="jdbc:mysql://localhost:3306/quiz?serverTimezone=UTC"
               username="root"
               password="root"
               maxTotal="20"
               maxIdle="10"
               maxWaitMillis="-1"
     />
-
-    <Parameter name="db-config" value="db.properties" override="true"/>
 </Context>

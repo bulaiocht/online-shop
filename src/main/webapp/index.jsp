@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix="c"%>
+<%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%@taglib uri='http://java.sun.com/jsp/jstl/fmt' prefix='fmt' %>
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
@@ -11,6 +12,7 @@
 <html>
   <body>
   <%@include file="META-INF/views/_header.jsp"%>
+  <a href="/test">Go to login page</a>
   <%@include file="META-INF/views/_footer.jsp"%>
   </body>
 </html>
