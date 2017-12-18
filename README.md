@@ -1,1 +1,1 @@
-### "Online shop" application
+### "Quiz" application

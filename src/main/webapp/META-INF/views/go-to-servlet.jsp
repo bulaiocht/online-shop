@@ -1,5 +1,5 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,7 @@
 </html>
 <html>
   <head>
-    <title>Test</title>
+    <title>Got to servlet</title>
   </head>
   <body>
   <a href='/test'> Test servlet </a>
