@@ -1,17 +1,23 @@
-package domain;
+package dto;
 
+import domain.Role;
 import lombok.*;
-import java.io.Serializable;
 
+/**
+ * Created by Kocherha Vitalii on 19.12.2017.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
-public class QuizUser implements Serializable {
+public class QuizUserResponceDTO {
+
     private int id;
+
     private String username;
+
     private Role role;
-    private String hexPassword;
+
 }

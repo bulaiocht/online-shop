@@ -16,6 +16,7 @@ public class MySQLConnectionSupplier implements ConnectionSupplier {
     private static final Logger logger = LogManager.getLogger(MySQLConnectionSupplier.class);
 
     private DataSource mySQLDataSource;
+
     {
         try {
             Context ctx = new InitialContext();

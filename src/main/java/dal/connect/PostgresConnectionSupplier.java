@@ -12,20 +12,22 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class PostgresConnectionSupplier implements ConnectionSupplier {
-    private final static Logger logger = LogManager.getLogger(PostgresConnectionSupplier.class);
+
+    private static final Logger logger = LogManager.getLogger(PostgresConnectionSupplier.class);
+
     private DataSource postgresDataSource;
 
-     {
-         try {
-             Context ctx = new InitialContext();
-             postgresDataSource = (DataSource) ctx.lookup(PostgresDBConfig.getDataSourcePath());
-         } catch (NamingException e) {
-             logger.error("Naming exception!", e);
-         }
-     }
+    {
+        try {
+            Context ctx = new InitialContext();
+            postgresDataSource = (DataSource) ctx.lookup(PostgresDBConfig.getDataSourcePath());
+        } catch (NamingException e) {
+            logger.error("Naming exception while creating connection supplier!", e);
+        }
+    }
 
     @Override
-    public Connection getConnection() throws SQLException{
+    public Connection getConnection() throws SQLException {
         return postgresDataSource.getConnection();
     }
 }

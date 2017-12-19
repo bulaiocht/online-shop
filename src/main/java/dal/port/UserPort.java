@@ -10,4 +10,10 @@ public interface UserPort {
 
     QuizUser findByUsername(String username);
 
+    boolean isPresent(QuizUser user);
+
+    boolean save(QuizUser user);
+
+    QuizUser delete(QuizUser user);
+
 }
