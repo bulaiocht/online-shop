@@ -12,7 +12,12 @@
 <html>
   <body>
   <%@include file="META-INF/views/_header.jsp"%>
-  <a href="/test">Go to login page</a>
+  <form action="/test" method="post">
+    <input type="text" name="username">
+    <input type="submit" value="Submit">
+  </form>
+  <br/>
+  <a href="/test">See all users</a>
   <%@include file="META-INF/views/_footer.jsp"%>
   </body>
 </html>

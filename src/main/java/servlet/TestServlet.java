@@ -2,7 +2,6 @@ package servlet;
 
 import dal.AbstractPortFactory;
 import dal.MySQLAdapterFactory;
-import dal.PostgresqlAdapterFactory;
 import dal.port.UserPort;
 import domain.QuizUser;
 import org.apache.logging.log4j.LogManager;
@@ -41,9 +40,8 @@ public class TestServlet extends HttpServlet{
             writer.print("<meta charset='UTF-8'/>");
             writer.print("</head>");
             writer.print("<body>");
-            for (QuizUser user : users) {
-                logger.info(user.getUsername());
-                writer.print("<p>" + user.toString() + "</p>");
+            for (QuizUser usr : users) {
+                writer.print("<p> User:" + usr.toString() + "</p>");
             }
             writer.print("</body>");
             writer.print("</html>");
@@ -51,5 +49,30 @@ public class TestServlet extends HttpServlet{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String username = req.getParameter("username");
+
+        try(PrintWriter writer = resp.getWriter()) {
+            writer.print("<! DOCTYPE html>");
+            writer.print("<html>");
+            writer.print("<head>");
+            writer.print("<title>");
+            writer.print("Title");
+            writer.print("</title>");
+            writer.print("<meta charset='UTF-8'/>");
+            writer.print("</head>");
+            writer.print("<body>");
+            QuizUser user = userPort.findByUsername(username);
+            writer.print("<p> User:" + user + "</p>");
+            writer.print("</body>");
+            writer.print("</html>");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

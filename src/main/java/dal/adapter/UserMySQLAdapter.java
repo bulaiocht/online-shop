@@ -7,10 +7,7 @@ import domain.Role;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +17,8 @@ public class UserMySQLAdapter implements UserPort {
 
     private ConnectionSupplier connectionSupplier;
 
-    private static final String SELECT_ALL = "SELECT * FROM user";
+    private static final String GET_BY_USERNAME = "SELECT role.role_name, user.user_id, user.username FROM role JOIN user ON user.role_id=role.role_id WHERE user.username=?";
+    private static final String SELECT_ALL = "SELECT * FROM user JOIN role ON user.role_id=role.role_id";
 
     public UserMySQLAdapter(ConnectionSupplier connectionSupplier) {
         this.connectionSupplier = connectionSupplier;
@@ -38,13 +36,36 @@ public class UserMySQLAdapter implements UserPort {
                     QuizUser user = new QuizUser();
                     user.setId(resultSet.getInt("user_id"));
                     user.setUsername(resultSet.getString("username"));
-                    user.setRole(Role.getById(resultSet.getInt("role_id")));
+                    user.setRole(Role.valueOf(resultSet.getString("role_name")));
                     quizUsers.add(user);
                 }
             }
         } catch (SQLException e) {
-            logger.fatal("Failed to get connection!", e.getCause());
+            logger.fatal("SQL exception happened!", e);
         }
         return quizUsers;
+    }
+
+    @Override
+    public QuizUser findByUsername(String username) {
+        QuizUser user = null;
+        try(Connection conn = connectionSupplier.getConnection()){
+            if (conn!=null){
+                logger.info("Connection obtained");
+                PreparedStatement statement = conn.prepareStatement(GET_BY_USERNAME);
+                statement.setString(1, username);
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()){
+                    user = new QuizUser();
+                    user.setId(resultSet.getInt("user_id"));
+                    user.setUsername(resultSet.getString("username"));
+                    user.setRole(Role.valueOf(resultSet.getString("role_name")));
+                }
+            }
+        } catch (SQLException e) {
+            logger.fatal("SQL exception happened!", e);
+        }
+
+        return user;
     }
 }
