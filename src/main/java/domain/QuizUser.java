@@ -13,5 +13,6 @@ public class QuizUser implements Serializable {
     private int id;
     private String username;
     private Role role;
-    private String hexPassword;
+    private String hashPassword;
+    private String salt;
 }

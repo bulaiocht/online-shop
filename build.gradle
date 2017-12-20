@@ -9,8 +9,13 @@ repositories {
 }
 
 dependencies {
+
     //for SHA256 password encryption
     compile group: 'commons-codec', name: 'commons-codec', version: '1.9'
+    //apache library for AES encryption/decryption
+    compile group: 'org.apache.commons', name: 'commons-crypto', version: '1.0.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+
     //for tomcat connection pool support
     compile group: 'org.apache.tomcat', name: 'tomcat-jdbc', version: '9.0.2'
     //log4j2 logging
@@ -33,7 +38,7 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.13.0'
 }
 
-    war {
+war {
     //from 'src/main/java' // adds a file-set to the root of the archive
     //classpath fileTree('additionalLibs') // adds a file-set to the WEB-INF/lib dir.
     //classpath configurations.moreLibs // adds a configuration to the WEB-INF/lib dir.

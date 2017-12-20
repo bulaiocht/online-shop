@@ -7,9 +7,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
-public class PasswordEncryptorTest {
+public class PasswordEncryptTest {
 
-    private static final Logger logger = LogManager.getLogger(PasswordEncryptorTest.class);
+    private static final Logger logger = LogManager.getLogger(PasswordEncryptTest.class);
     private static final String NULL_PASS = null;
     private static final String okPass = "password1string";
 
@@ -17,7 +17,7 @@ public class PasswordEncryptorTest {
     public void encryptNullStringWithException() {
         try {
             logger.info("Going to catch IllegalArgumentException");
-            PasswordEncryptor.encryptToHexString(NULL_PASS);
+            PasswordEncrypt.encryptToHexString(NULL_PASS);
         } catch (IllegalArgumentException e) {
             logger.info("Exception caught", e);
         }
@@ -25,12 +25,27 @@ public class PasswordEncryptorTest {
 
     @Test
     public void encryptWithoutException(){
-        String outputOne = PasswordEncryptor.encryptToHexString(okPass);
-        String outputTwo = PasswordEncryptor.encryptToHexString(okPass);
+        String outputOne = PasswordEncrypt.encryptToHexString(okPass);
+        String outputTwo = PasswordEncrypt.encryptToHexString(okPass);
         logger.info(String.format("Pass: %s . Encrypted hexadecimal: %s ", okPass, outputOne));
         logger.info(String.format("Pass: %s . Encrypted hexadecimal: %s ", okPass, outputTwo));
         assertNotNull(outputOne);
         assertNotNull(outputTwo);
         assertEquals(outputTwo, outputOne);
+    }
+
+    @Test
+    public void encryptToByteArray() {
+    }
+
+    @Test
+    public void saltGenerator() {
+        String saltOne = PasswordEncrypt.saltGenerator();
+        String saltTwo = PasswordEncrypt.saltGenerator();
+        logger.info("Salty string: " + saltOne + " length: " + saltOne.length());
+        logger.info("Salty string: " + saltTwo + " length: " + saltTwo.length());
+        assertTrue(saltOne.length()==20);
+        assertTrue(saltTwo.length()==20);
+        assertNotEquals(saltOne, saltTwo);
     }
 }

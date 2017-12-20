@@ -17,7 +17,7 @@ public class UserMySQLAdapter implements UserPort {
 
     private ConnectionSupplier connectionSupplier;
 
-    private static final String GET_BY_USERNAME = "SELECT role.role_name, user.user_id, user.username, user.password FROM role JOIN user ON user.role_id=role.role_id WHERE user.username=?";
+    private static final String GET_BY_USERNAME = "SELECT role.role_name, user.user_id, user.username, user.hash_password FROM role JOIN user ON user.role_id=role.role_id WHERE user.username=?";
     private static final String FIND_EXACT = "SELECT role.role_name, user.user_id, user.username, user.password" +
             " FROM role JOIN user ON user.role_id=role.role_id" +
             " WHERE user.username=? AND user.password=?";
@@ -63,7 +63,7 @@ public class UserMySQLAdapter implements UserPort {
                     user = new QuizUser();
                     user.setId(resultSet.getInt("user_id"));
                     user.setUsername(resultSet.getString("username"));
-                    user.setHexPassword(resultSet.getString("password"));
+                    user.setHashPassword(resultSet.getString("password"));
                     user.setRole(Role.valueOf(resultSet.getString("role_name")));
                 }
             }

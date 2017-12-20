@@ -11,7 +11,8 @@ CREATE TABLE user
 (
   user_id INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(35) NOT NULL,
-  password VARCHAR(35) NOT NULL,
+  hash_password VARCHAR(255) NOT NULL,
+  salt VARCHAR(255) NOT NULL,
   role_id INT NOT NULL,
   PRIMARY KEY (user_id),
   CONSTRAINT user_fk FOREIGN KEY (role_id) REFERENCES role (role_id)
@@ -22,7 +23,7 @@ INSERT INTO quiz.role (role_name) VALUES
   ('ADMIN'),
   ('ANON');
 
-INSERT INTO quiz.user (username, password, role_id) VALUES
+INSERT INTO quiz.user (username, hash_password, role_id) VALUES
   ('user1','user1', 1),
   ('user2','user2', 1),
   ('user3','user3', 1),
