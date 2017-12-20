@@ -3,10 +3,7 @@ package crypto;
 import org.apache.commons.codec.digest.DigestUtils;
 import java.util.Optional;
 
-/**
- * Created by Kocherha Vitalii on 19.12.2017.
- */
-public class PasswordEncrypt {
+public class PasswordEncryptor {
 
     public static String encryptToHexString(String pass){
         String notNullPass = Optional.ofNullable(pass)

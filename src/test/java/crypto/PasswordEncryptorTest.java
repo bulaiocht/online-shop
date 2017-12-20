@@ -6,12 +6,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Kocherha Vitalii on 19.12.2017.
- */
-public class PasswordEncryptTest {
 
-    private static final Logger logger = LogManager.getLogger(PasswordEncryptTest.class);
+public class PasswordEncryptorTest {
+
+    private static final Logger logger = LogManager.getLogger(PasswordEncryptorTest.class);
     private static final String NULL_PASS = null;
     private static final String okPass = "password1string";
 
@@ -19,7 +17,7 @@ public class PasswordEncryptTest {
     public void encryptNullStringWithException() {
         try {
             logger.info("Going to catch IllegalArgumentException");
-            PasswordEncrypt.encryptToHexString(NULL_PASS);
+            PasswordEncryptor.encryptToHexString(NULL_PASS);
         } catch (IllegalArgumentException e) {
             logger.info("Exception caught", e);
         }
@@ -27,8 +25,8 @@ public class PasswordEncryptTest {
 
     @Test
     public void encryptWithoutException(){
-        String outputOne = PasswordEncrypt.encryptToHexString(okPass);
-        String outputTwo = PasswordEncrypt.encryptToHexString(okPass);
+        String outputOne = PasswordEncryptor.encryptToHexString(okPass);
+        String outputTwo = PasswordEncryptor.encryptToHexString(okPass);
         logger.info(String.format("Pass: %s . Encrypted hexadecimal: %s ", okPass, outputOne));
         logger.info(String.format("Pass: %s . Encrypted hexadecimal: %s ", okPass, outputTwo));
         assertNotNull(outputOne);

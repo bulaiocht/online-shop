@@ -12,26 +12,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/test")
-public class TestServlet extends HttpServlet{
+public class TestServlet extends HttpServlet {
 
     private final static Logger logger = LogManager.getLogger(TestServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
-
-        try(PrintWriter writer = resp.getWriter()) {
-            writer.print("<! DOCTYPE html>");
-            writer.print("<html>");
-            writer.print("<head>");
-            writer.print("<title>");
-            writer.print("Title");
-            writer.print("</title>");
-            writer.print("<meta charset='UTF-8'/>");
-            writer.print("</head>");
-            writer.print("<body>");
-            writer.print("</body>");
-            writer.print("</html>");
-
+        try {
+            resp.setContentType("text/html");
+            PrintWriter writer = resp.getWriter();
+            writer.print(req.getAttribute("1") + "\n");
+            writer.print(req.getAttribute("2"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,24 +30,6 @@ public class TestServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String username = req.getParameter("username");
-
-        try(PrintWriter writer = resp.getWriter()) {
-            writer.print("<! DOCTYPE html>");
-            writer.print("<html>");
-            writer.print("<head>");
-            writer.print("<title>");
-            writer.print("Title");
-            writer.print("</title>");
-            writer.print("<meta charset='UTF-8'/>");
-            writer.print("</head>");
-            writer.print("<body>");
-            writer.print("</body>");
-            writer.print("</html>");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 }
